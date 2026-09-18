@@ -96,7 +96,7 @@ test("scenario inputs are clamped and invalid values fall back safely", () => {
   const invalid = scenarioAgent({ realization: "not-a-number", costMultiplier: null, disruptionMultiplier: undefined, adoption: NaN });
   assert.deepEqual(invalid.assumptions, {
     savingsRealization: 85,
-    implementationCostIndex: 70,
+    implementationCostIndex: 100,
     disruptionIndex: 100,
     adoption: 80
   });
