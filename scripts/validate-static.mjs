@@ -33,6 +33,7 @@ const html = read("index.html");
 const app = read("src/app.mjs");
 const readme = read("README.md");
 const architecture = read("architecture/agent-workflow.md");
+const architectureSvg = read("architecture/decisionforge-architecture.svg");
 
 const htmlIds = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 const uniqueHtmlIds = new Set(htmlIds);
@@ -81,7 +82,10 @@ assert.ok(app.includes("client-fallback"), "Client-side synthesis fallback is mi
 assert.ok(app.includes("URL.createObjectURL"), "Executive brief download path is missing");
 
 assert.ok(readme.includes("architecture/decisionforge-architecture.svg"), "README does not reference the stable architecture asset");
+assert.ok(!readme.includes("```mermaid"), "README should use the stable architecture asset instead of the wide Mermaid graph");
 assert.ok(architecture.includes("decisionforge-architecture.svg"), "Architecture documentation does not reference the stable diagram");
+assert.match(architectureSvg, /^<svg\b/, "Architecture asset is not valid SVG text");
+assert.match(architectureSvg, /DecisionForge AI — decision architecture/, "Architecture SVG title is missing");
 
 const forbidden = [/\bDHL\b/i, /Deutsche\s+Post/i, /Samantha\s+Dunkel/i];
 const independentFiles = [
