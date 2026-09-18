@@ -1,0 +1,25 @@
+{
+  "name": "decisionforge-ai",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Agentic strategy and transformation workbench for evidence-driven management decisions.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate": "node scripts/validate-static.mjs",
+    "check": "npm run test && npm run validate"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "management-consulting",
+    "agentic-ai",
+    "strategy",
+    "transformation",
+    "decision-intelligence",
+    "scenario-planning",
+    "analytics"
+  ],
+  "license": "MIT"
+}

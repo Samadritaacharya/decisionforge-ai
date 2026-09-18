@@ -1,0 +1,13 @@
+region,revenue_eur_m,ebit_margin_pct,productivity_index,csat,cycle_time_days,automation_pct
+Nordics,24.8,13.4,108,84,4.6,38
+Benelux,25.7,12.1,105,82,4.9,34
+DACH North,29.4,10.8,101,80,5.1,31
+DACH South,27.9,9.7,99,79,5.4,28
+France,23.1,8.2,94,76,6.0,22
+Iberia,18.5,7.5,92,75,6.3,20
+Italy,17.9,6.8,89,73,6.7,18
+UK & Ireland,26.3,8.9,96,77,5.8,26
+Central Europe,18.8,5.9,86,71,7.1,15
+Balkans,8.7,4.8,83,69,7.5,13
+Baltics,7.6,7.2,91,74,6.4,19
+CEE East,25.2,5.4,85,70,7.2,14

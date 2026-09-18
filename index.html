@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DecisionForge AI — an agentic strategy and transformation workbench for evidence-driven management decisions." />
+  <meta name="theme-color" content="#07111f" />
+  <title>DecisionForge AI — Strategy & Transformation Workbench</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="DecisionForge home">
+        <span class="brand-mark">DF</span>
+        <span><b>DecisionForge</b><small>AI</small></span>
+      </a>
+      <nav aria-label="Decision room navigation">
+        <a class="nav-link active" href="#brief"><span>01</span>Case brief</a>
+        <a class="nav-link" href="#framing"><span>02</span>Problem framing</a>
+        <a class="nav-link" href="#diagnosis"><span>03</span>Diagnosis</a>
+        <a class="nav-link" href="#scenarios"><span>04</span>Scenarios</a>
+        <a class="nav-link" href="#challenge"><span>05</span>Red team</a>
+        <a class="nav-link" href="#recommendation"><span>06</span>Recommendation</a>
+        <a class="nav-link" href="#roadmap-section"><span>07</span>Roadmap</a>
+        <a class="nav-link" href="#evidence"><span>08</span>Evidence</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="live-dot"><i></i>Decision engine ready</div>
+        <p>Fictional case · synthetic data</p>
+      </div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">EXECUTIVE DECISION ROOM</span>
+          <strong id="companyName">Northstar Services Group</strong>
+        </div>
+        <button id="runButton" class="primary-action">Run Decision Room <span>→</span></button>
+      </header>
+
+      <section id="brief" class="hero section-pad">
+        <div class="hero-copy">
+          <span class="section-kicker">CASE 01 · PROFITABLE GROWTH</span>
+          <h1 id="executiveQuestion">How should management restore margin while protecting growth and customer experience?</h1>
+          <p>DecisionForge turns an ambiguous executive problem into a traceable chain of hypotheses, diagnostics, strategic alternatives and implementation decisions.</p>
+          <div class="hero-tags"><span>Strategy</span><span>Finance</span><span>Operations</span><span>Organization</span><span>Technology</span></div>
+        </div>
+        <div class="hero-panel">
+          <div class="panel-label">The signal</div>
+          <div class="big-number">11.0% <small>revenue growth</small></div>
+          <div class="versus">while</div>
+          <div class="big-number negative">−6.0 pp <small>EBIT margin</small></div>
+          <div class="mini-rule"></div>
+          <p>Growth is not translating into operating leverage.</p>
+        </div>
+      </section>
+
+      <section class="scq-strip section-pad">
+        <article><span>S</span><div><b>Situation</b><p id="situationText"></p></div></article>
+        <article><span>C</span><div><b>Complication</b><p id="complicationText"></p></div></article>
+        <article><span>Q</span><div><b>Key question</b><p id="questionText"></p></div></article>
+      </section>
+
+      <section class="agent-orchestra section-pad">
+        <div class="section-heading">
+          <div><span class="section-kicker">ORCHESTRATION</span><h2>10 specialist agents, one decision chain</h2></div>
+          <p>Each agent has a narrow role. Evidence, assumptions and human approvals remain explicit throughout the workflow.</p>
+        </div>
+        <div class="agent-grid">
+          <article id="agentProblem" class="agent-card" data-status="idle"><span>01</span><div><b>Problem Structuring</b><small class="agent-note">SCQ · MECE · hypotheses</small></div><em class="agent-state">idle</em></article>
+          <article id="agentDiagnostic" class="agent-card" data-status="idle"><span>02</span><div><b>Diagnostic Analyst</b><small class="agent-note">performance drivers</small></div><em class="agent-state">idle</em></article>
+          <article id="agentHypothesis" class="agent-card" data-status="idle"><span>03</span><div><b>Hypothesis</b><small class="agent-note">test competing explanations</small></div><em class="agent-state">idle</em></article>
+          <article id="agentScenario" class="agent-card" data-status="idle"><span>04</span><div><b>Scenario</b><small class="agent-note">strategic alternatives</small></div><em class="agent-state">idle</em></article>
+          <article id="agentFinance" class="agent-card" data-status="idle"><span>05</span><div><b>Financial Impact</b><small class="agent-note">value · payback</small></div><em class="agent-state">idle</em></article>
+          <article id="agentStakeholder" class="agent-card" data-status="idle"><span>06</span><div><b>Stakeholder & Change</b><small class="agent-note">adoption dependencies</small></div><em class="agent-state">idle</em></article>
+          <article id="agentRisk" class="agent-card" data-status="idle"><span>07</span><div><b>Risk</b><small class="agent-note">execution exposure</small></div><em class="agent-state">idle</em></article>
+          <article id="agentRedTeam" class="agent-card" data-status="idle"><span>08</span><div><b>Red Team</b><small class="agent-note">challenge assumptions</small></div><em class="agent-state">idle</em></article>
+          <article id="agentRecommendation" class="agent-card" data-status="idle"><span>09</span><div><b>Recommendation</b><small class="agent-note">synthesis · trade-offs</small></div><em class="agent-state">idle</em></article>
+          <article id="agentExecutive" class="agent-card" data-status="idle"><span>10</span><div><b>Executive Communication</b><small class="agent-note">storyline · brief</small></div><em class="agent-state">idle</em></article>
+        </div>
+      </section>
+
+      <section id="framing" class="content-section section-pad">
+        <div class="section-heading">
+          <div><span class="section-kicker">02 · PROBLEM FRAMING</span><h2>Structure before solution</h2></div>
+          <p>The workbench decomposes the question into mutually distinct branches before analyzing data.</p>
+        </div>
+        <div id="issueTree" class="issue-tree empty-state"><p>Run the Decision Room to generate the issue tree.</p></div>
+        <div id="framingGate" class="human-gate locked">
+          <div class="gate-icon">H</div>
+          <div><span>HUMAN APPROVAL GATE</span><h3 id="framingGateTitle">Approve the problem framing before analysis</h3><p>DecisionForge will not recommend action until the executive question and issue tree are accepted.</p></div>
+          <button id="approveFraming" class="gate-button">Approve framing</button>
+        </div>
+      </section>
+
+      <div id="analysisLocked" class="locked-band section-pad">
+        <span>Analysis locked</span><p>Complete the problem-framing approval gate to continue.</p>
+      </div>
+
+      <div id="analysisContent" class="hidden">
+        <section id="diagnosis" class="content-section section-pad">
+          <div class="section-heading">
+            <div><span class="section-kicker">03 · DIAGNOSIS</span><h2>Follow the economics, not the noise</h2></div>
+            <p>Cross-functional metrics expose where profitable growth broke down.</p>
+          </div>
+          <div id="diagnosisCards" class="metric-grid"></div>
+          <div class="two-col">
+            <div><h3>Evidence-backed findings</h3><div id="findings" class="finding-list"></div></div>
+            <div class="chart-card"><div class="chart-head"><div><span>Regional performance</span><b>EBIT margin vs CSAT</b></div><small>FY2026</small></div><div id="regionalBars" class="bar-chart"></div></div>
+          </div>
+          <div><h3 class="subhead">Hypotheses tested</h3><div id="hypothesisGrid" class="hypothesis-grid"></div></div>
+        </section>
+
+        <section id="scenarios" class="content-section section-pad alt-section">
+          <div class="section-heading">
+            <div><span class="section-kicker">04 · STRATEGIC ALTERNATIVES</span><h2>Make assumptions inspectable</h2></div>
+            <p>Change the assumptions. DecisionForge recalculates value, payback and the recommendation immediately.</p>
+          </div>
+          <div class="assumption-panel">
+            <label>Savings realization <b id="realizationValue">85%</b><input id="realization" type="range" min="50" max="110" value="85" /></label>
+            <label>Implementation cost index <b id="costValue">100%</b><input id="costMultiplier" type="range" min="70" max="150" value="100" /></label>
+            <label>Disruption index <b id="disruptionValue">100%</b><input id="disruptionMultiplier" type="range" min="50" max="200" value="100" /></label>
+            <label>Adoption <b id="adoptionValue">80%</b><input id="adoption" type="range" min="40" max="100" value="80" /></label>
+          </div>
+          <div id="scenarioGrid" class="scenario-grid"></div>
+        </section>
+
+        <section id="challenge" class="content-section section-pad">
+          <div class="section-heading">
+            <div><span class="section-kicker">05 · RED TEAM</span><h2>Challenge the answer before selling it</h2></div>
+            <p>The system explicitly searches for weak assumptions, double-counting and causal overreach.</p>
+          </div>
+          <div id="redTeam" class="red-team-grid"></div>
+          <div class="risk-panel"><h3>Execution risk register</h3><div id="riskTable" class="risk-table"></div></div>
+        </section>
+
+        <section id="recommendation" class="content-section section-pad recommendation-section">
+          <div class="recommendation-eyebrow">06 · RECOMMENDATION</div>
+          <div class="recommendation-grid">
+            <div><span class="decision-label">Recommended path</span><h2 id="recommendationTitle"></h2><p id="recommendationText" class="decision-text"></p><ul id="recommendationReasons" class="reason-list"></ul></div>
+            <div id="impactStrip" class="impact-strip"></div>
+          </div>
+          <div class="stakeholder-block"><div><span class="section-kicker">CHANGE SYSTEM</span><h3>Stakeholder requirements</h3></div><div id="stakeholders" class="stakeholder-grid"></div></div>
+          <div id="recommendationGate" class="human-gate locked recommendation-gate">
+            <div class="gate-icon">H</div>
+            <div><span>HUMAN APPROVAL GATE</span><h3>Approve the recommendation before executive export</h3><p>Human accountability remains explicit even when analysis is agent-assisted.</p></div>
+            <button id="approveRecommendation" class="gate-button">Approve recommendation</button>
+          </div>
+          <div class="export-row"><button id="downloadBrief" class="secondary-action secondary-disabled" disabled>Download executive brief ↓</button><span>Markdown · traceable evidence · synthetic case</span></div>
+        </section>
+
+        <section id="roadmap-section" class="content-section section-pad alt-section">
+          <div class="section-heading"><div><span class="section-kicker">07 · IMPLEMENTATION</span><h2>Recommendation → execution</h2></div><p>The case does not end at the slide. It ends with owners, guardrails and sequencing.</p></div>
+          <div id="roadmap" class="roadmap"></div>
+        </section>
+      </div>
+
+      <section id="evidence" class="content-section section-pad evidence-section">
+        <div class="section-heading"><div><span class="section-kicker">08 · EVIDENCE TRACE</span><h2>Every conclusion has a trail</h2></div><p>Evidence IDs are carried from diagnosis through hypotheses and recommendations to reduce unsupported AI prose.</p></div>
+        <div id="evidenceList" class="evidence-list"></div>
+        <div class="synthetic-notice"><span>DATA NOTE</span><p id="syntheticNotice"></p></div>
+      </section>
+
+      <footer class="footer section-pad"><div><b>DecisionForge AI</b><span>Agentic Strategy & Transformation Workbench</span></div><p>Built as an independent portfolio project for structured business problem solving.</p></footer>
+    </main>
+  </div>
+  <script type="module" src="./src/app.mjs"></script>
+</body>
+</html>
