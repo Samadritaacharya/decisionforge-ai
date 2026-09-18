@@ -1,0 +1,5 @@
+metric,FY2025,FY2026,unit
+CSAT,84,76,index
+First_time_right,91,83,percent
+Rework_hours_index,100,129,index
+Average_cycle_time,4.8,6.1,days
