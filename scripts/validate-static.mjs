@@ -85,7 +85,13 @@ assert.ok(readme.includes("architecture/decisionforge-architecture.svg"), "READM
 assert.ok(!readme.includes("```mermaid"), "README should use the stable architecture asset instead of the wide Mermaid graph");
 assert.ok(architecture.includes("decisionforge-architecture.svg"), "Architecture documentation does not reference the stable diagram");
 assert.match(architectureSvg, /^<svg\b/, "Architecture asset is not valid SVG text");
+assert.match(architectureSvg, /<\/svg>\s*$/, "Architecture SVG is missing its closing tag");
 assert.match(architectureSvg, /DecisionForge AI — decision architecture/, "Architecture SVG title is missing");
+assert.doesNotMatch(
+  architectureSvg,
+  /&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9A-Fa-f]+;)/,
+  "Architecture SVG contains an unescaped ampersand and is invalid XML"
+);
 
 const forbidden = [/\bDHL\b/i, /Deutsche\s+Post/i, /Samantha\s+Dunkel/i];
 const independentFiles = [
@@ -104,5 +110,5 @@ for (const file of independentFiles) {
 }
 
 console.log(
-  `Static validation passed: ${required.length} required files, ${uniqueHtmlIds.size} unique UI ids, ${new Set(appIds).size} app id references, navigation targets, synthesis wiring, rerun safety, architecture asset, and independence checks are valid.`
+  `Static validation passed: ${required.length} required files, ${uniqueHtmlIds.size} unique UI ids, ${new Set(appIds).size} app id references, navigation targets, synthesis wiring, rerun safety, GitHub-safe architecture SVG, and independence checks are valid.`
 );
