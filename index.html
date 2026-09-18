@@ -148,6 +148,18 @@
             <div><span>HUMAN APPROVAL GATE</span><h3>Approve the recommendation before executive export</h3><p>Human accountability remains explicit even when analysis is agent-assisted.</p></div>
             <button id="approveRecommendation" class="gate-button">Approve recommendation</button>
           </div>
+          <div class="synthesis-block">
+            <div>
+              <span class="section-kicker">OPTIONAL SYNTHESIS</span>
+              <h3>Executive synthesis</h3>
+              <p>Uses the serverless synthesis endpoint when available; otherwise the app falls back to a deterministic evidence-based summary.</p>
+            </div>
+            <button id="synthesisButton" class="secondary-action" disabled>Generate executive synthesis</button>
+          </div>
+          <div id="synthesisPanel" class="synthesis-panel hidden" aria-live="polite">
+            <span id="synthesisMode"></span>
+            <p id="synthesisText"></p>
+          </div>
           <div class="export-row"><button id="downloadBrief" class="secondary-action secondary-disabled" disabled>Download executive brief ↓</button><span>Markdown · traceable evidence · synthetic case</span></div>
         </section>
 
