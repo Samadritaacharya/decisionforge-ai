@@ -26,7 +26,7 @@
   <text x="866" y="159" class="tag">HUMAN GATE 1</text><text x="866" y="181" class="label">Approve problem framing</text><text x="866" y="199" class="small">Analysis remains locked until accepted</text>
   <path class="line" d="M354 171 H450"/><path class="line" d="M750 171 H846"/>
 
-  <text x="54" y="254" class="zone">2 · ANALYZE & MODEL</text>
+  <text x="54" y="254" class="zone">2 · ANALYZE &amp; MODEL</text>
   <rect x="54" y="270" width="240" height="82" rx="12" class="agent"/>
   <text x="74" y="294" class="tag">AGENT 02</text><text x="74" y="316" class="label">Diagnostic Analyst</text><text x="74" y="336" class="small">KPIs · regions · drivers</text>
   <rect x="336" y="270" width="240" height="82" rx="12" class="agent"/>
@@ -37,7 +37,7 @@
   <text x="920" y="294" class="tag">AGENT 05</text><text x="920" y="316" class="label">Financial Impact</text><text x="920" y="336" class="small">Value · margin · investment · payback</text>
   <path class="line" d="M996 207 V235 H174 V270"/><path class="line" d="M294 311 H336"/><path class="line" d="M576 311 H618"/><path class="line" d="M858 311 H900"/>
 
-  <text x="54" y="400" class="zone">3 · CHALLENGE & SYNTHESIZE</text>
+  <text x="54" y="400" class="zone">3 · CHALLENGE &amp; SYNTHESIZE</text>
   <rect x="54" y="418" width="245" height="82" rx="12" class="agent"/>
   <text x="74" y="442" class="tag">AGENT 06</text><text x="74" y="464" class="label">Stakeholder &amp; Change</text><text x="74" y="484" class="small">Adoption · ownership · dependencies</text>
   <rect x="336" y="418" width="240" height="82" rx="12" class="agent"/>
@@ -49,7 +49,7 @@
   <path class="line" d="M1023 352 V385 H176 V418"/><path class="line" d="M1023 352 V385 H456 V418"/><path class="line" d="M1023 352 V385 H738 V418"/>
   <path class="line" d="M299 459 H880 V448 H900"/><path class="line" d="M576 459 H880"/><path class="line" d="M858 459 H900"/>
 
-  <text x="54" y="548" class="zone">4 · GOVERN, COMMUNICATE & EXECUTE</text>
+  <text x="54" y="548" class="zone">4 · GOVERN, COMMUNICATE &amp; EXECUTE</text>
   <rect x="54" y="566" width="245" height="86" rx="12" class="box"/>
   <text x="74" y="590" class="tag">DETERMINISTIC PLANNER</text><text x="74" y="612" class="label">Implementation Roadmap</text><text x="74" y="632" class="small">0–90 · 90–180 · 180–365 days</text>
   <rect x="336" y="566" width="240" height="86" rx="12" class="gate"/>
