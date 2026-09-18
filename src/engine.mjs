@@ -3,6 +3,7 @@ import { caseData, scenarioDefinitions } from "./case-data.mjs";
 const round = (n, d = 1) => Number(n.toFixed(d));
 const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 const boundedNumber = (value, fallback, min, max) => {
+  if (value === null || value === undefined || value === "") return clamp(fallback, min, max);
   const parsed = Number(value);
   return clamp(Number.isFinite(parsed) ? parsed : fallback, min, max);
 };
