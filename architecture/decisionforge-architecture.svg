@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">DecisionForge AI architecture</title>
+  <desc id="desc">Architecture showing the executive question, ten specialist decision roles, two human approval gates, a deterministic roadmap planner, optional synthesis endpoint, and executive outputs.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:700 28px system-ui,-apple-system,Segoe UI,sans-serif;fill:#0f172a}.sub{font:400 14px system-ui,-apple-system,Segoe UI,sans-serif;fill:#64748b}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:1.5}.agent{fill:#f0fdfa;stroke:#5eead4}.gate{fill:#fff7ed;stroke:#f59e0b}.output{fill:#eff6ff;stroke:#60a5fa}.optional{fill:#faf5ff;stroke:#c084fc;stroke-dasharray:7 5}
+      .label{font:700 14px system-ui,-apple-system,Segoe UI,sans-serif;fill:#0f172a}.small{font:500 11px system-ui,-apple-system,Segoe UI,sans-serif;fill:#64748b}.tag{font:700 10px system-ui,-apple-system,Segoe UI,sans-serif;fill:#0f766e}
+      .line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}.dash{fill:none;stroke:#9333ea;stroke-width:1.6;stroke-dasharray:6 5;marker-end:url(#arrow)}
+      .zone{font:700 11px system-ui,-apple-system,Segoe UI,sans-serif;fill:#64748b;letter-spacing:1.4px}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="780" rx="22"/>
+  <text x="54" y="52" class="title">DecisionForge AI — decision architecture</text>
+  <text x="54" y="78" class="sub">Traceable analysis, explicit human gates, scenario economics, red-team challenge and implementation-ready outputs.</text>
+
+  <text x="54" y="118" class="zone">1 · FRAME THE DECISION</text>
+  <rect x="54" y="135" width="300" height="72" rx="12" class="output"/>
+  <text x="74" y="162" class="label">Executive question</text><text x="74" y="184" class="small">Situation · complication · decision required</text>
+  <rect x="450" y="135" width="300" height="72" rx="12" class="agent"/>
+  <text x="470" y="159" class="tag">AGENT 01</text><text x="470" y="181" class="label">Problem Structuring</text><text x="470" y="199" class="small">SCQ · issue tree · hypotheses</text>
+  <rect x="846" y="135" width="300" height="72" rx="12" class="gate"/>
+  <text x="866" y="159" class="tag">HUMAN GATE 1</text><text x="866" y="181" class="label">Approve problem framing</text><text x="866" y="199" class="small">Analysis remains locked until accepted</text>
+  <path class="line" d="M354 171 H450"/><path class="line" d="M750 171 H846"/>
+
+  <text x="54" y="254" class="zone">2 · ANALYZE & MODEL</text>
+  <rect x="54" y="270" width="240" height="82" rx="12" class="agent"/>
+  <text x="74" y="294" class="tag">AGENT 02</text><text x="74" y="316" class="label">Diagnostic Analyst</text><text x="74" y="336" class="small">KPIs · regions · drivers</text>
+  <rect x="336" y="270" width="240" height="82" rx="12" class="agent"/>
+  <text x="356" y="294" class="tag">AGENT 03</text><text x="356" y="316" class="label">Hypothesis</text><text x="356" y="336" class="small">Competing explanations · evidence</text>
+  <rect x="618" y="270" width="240" height="82" rx="12" class="agent"/>
+  <text x="638" y="294" class="tag">AGENT 04</text><text x="638" y="316" class="label">Scenario</text><text x="638" y="336" class="small">Alternatives · sensitivity</text>
+  <rect x="900" y="270" width="246" height="82" rx="12" class="agent"/>
+  <text x="920" y="294" class="tag">AGENT 05</text><text x="920" y="316" class="label">Financial Impact</text><text x="920" y="336" class="small">Value · margin · investment · payback</text>
+  <path class="line" d="M996 207 V235 H174 V270"/><path class="line" d="M294 311 H336"/><path class="line" d="M576 311 H618"/><path class="line" d="M858 311 H900"/>
+
+  <text x="54" y="400" class="zone">3 · CHALLENGE & SYNTHESIZE</text>
+  <rect x="54" y="418" width="245" height="82" rx="12" class="agent"/>
+  <text x="74" y="442" class="tag">AGENT 06</text><text x="74" y="464" class="label">Stakeholder &amp; Change</text><text x="74" y="484" class="small">Adoption · ownership · dependencies</text>
+  <rect x="336" y="418" width="240" height="82" rx="12" class="agent"/>
+  <text x="356" y="442" class="tag">AGENT 07</text><text x="356" y="464" class="label">Risk</text><text x="356" y="484" class="small">Execution exposure · mitigations</text>
+  <rect x="618" y="418" width="240" height="82" rx="12" class="agent"/>
+  <text x="638" y="442" class="tag">AGENT 08</text><text x="638" y="464" class="label">Red Team</text><text x="638" y="484" class="small">Double-counting · causality · downside</text>
+  <rect x="900" y="418" width="246" height="82" rx="12" class="agent"/>
+  <text x="920" y="442" class="tag">AGENT 09</text><text x="920" y="464" class="label">Recommendation</text><text x="920" y="484" class="small">Trade-offs · guardrails · decision</text>
+  <path class="line" d="M1023 352 V385 H176 V418"/><path class="line" d="M1023 352 V385 H456 V418"/><path class="line" d="M1023 352 V385 H738 V418"/>
+  <path class="line" d="M299 459 H880 V448 H900"/><path class="line" d="M576 459 H880"/><path class="line" d="M858 459 H900"/>
+
+  <text x="54" y="548" class="zone">4 · GOVERN, COMMUNICATE & EXECUTE</text>
+  <rect x="54" y="566" width="245" height="86" rx="12" class="box"/>
+  <text x="74" y="590" class="tag">DETERMINISTIC PLANNER</text><text x="74" y="612" class="label">Implementation Roadmap</text><text x="74" y="632" class="small">0–90 · 90–180 · 180–365 days</text>
+  <rect x="336" y="566" width="240" height="86" rx="12" class="gate"/>
+  <text x="356" y="590" class="tag">HUMAN GATE 2</text><text x="356" y="612" class="label">Approve recommendation</text><text x="356" y="632" class="small">Export remains locked until accepted</text>
+  <rect x="618" y="566" width="240" height="86" rx="12" class="agent"/>
+  <text x="638" y="590" class="tag">AGENT 10</text><text x="638" y="612" class="label">Executive Communication</text><text x="638" y="632" class="small">Storyline · evidence trace · brief</text>
+  <rect x="900" y="566" width="246" height="86" rx="12" class="output"/>
+  <text x="920" y="590" class="tag">OUTPUT</text><text x="920" y="612" class="label">Executive decision brief</text><text x="920" y="632" class="small">Recommendation · economics · roadmap</text>
+  <path class="line" d="M1023 500 V530 H176 V566"/><path class="line" d="M299 609 H336"/><path class="line" d="M576 609 H618"/><path class="line" d="M858 609 H900"/>
+
+  <rect x="618" y="688" width="528" height="58" rx="12" class="optional"/>
+  <text x="638" y="712" class="tag" style="fill:#7e22ce">OPTIONAL SIDECAR</text>
+  <text x="638" y="733" class="label">/api/synthesize · OpenAI-compatible provider or deterministic fallback</text>
+  <path class="dash" d="M1023 500 V538 H1120 V688"/>
+
+  <text x="54" y="730" class="small">Synthetic case data · inspectable assumptions · evidence IDs carried through the decision chain</text>
+</svg>

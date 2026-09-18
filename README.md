@@ -31,7 +31,7 @@ Two **human approval gates** keep accountability explicit. Evidence IDs are carr
 
 ## Live product behavior
 
-The app works with **no API key and no paid service**. Its deterministic decision engine is fully inspectable in `src/engine.mjs`. A provider-agnostic optional synthesis endpoint exists in `api/synthesize.js`; if no provider variables are configured it safely returns an evidence-based deterministic fallback.
+The app works with **no API key and no paid service**. Its deterministic decision engine is fully inspectable in `src/engine.mjs`. An optional OpenAI-compatible synthesis endpoint exists in `api/synthesize.js`; the UI calls it when available and safely falls back to an evidence-based deterministic summary when provider configuration or the serverless route is unavailable.
 
 ### Sensitivity controls
 
@@ -46,23 +46,13 @@ Scenario economics and the recommendation are recalculated immediately.
 
 ## Architecture
 
-```mermaid
-flowchart LR
-  Q[Executive question] --> P[Problem Structuring]
-  P --> H1{Human gate}
-  H1 --> D[Diagnosis]
-  D --> HY[Hypothesis tests]
-  HY --> S[Scenario modeling]
-  S --> F[Financial impact]
-  F --> C[Stakeholder & change]
-  C --> R[Risk]
-  R --> RT[Red team]
-  RT --> REC[Recommendation]
-  REC --> H2{Human gate}
-  H2 --> E[Executive brief]
-```
+<p align="center">
+  <img src="./architecture/decisionforge-architecture.svg" alt="DecisionForge AI decision architecture showing the executive question, specialist agents, two human approval gates, deterministic roadmap planning, optional synthesis, and the executive decision brief." width="100%" />
+</p>
 
-Detailed workflow: [`architecture/agent-workflow.md`](architecture/agent-workflow.md)
+The core flow uses **10 specialist decision roles**, **2 explicit human approval gates**, and a deterministic implementation-roadmap planner. The optional `/api/synthesize` sidecar can use an OpenAI-compatible provider when configured and otherwise falls back safely.
+
+Detailed workflow and component map: [`architecture/agent-workflow.md`](architecture/agent-workflow.md)
 
 ## Run locally
 
@@ -102,7 +92,9 @@ The project is deployment-ready for Vercel as a static frontend with an optional
 ├── api/synthesize.js            # Optional provider-backed synthesis + fallback
 ├── data/                         # Synthetic CSV evidence
 ├── scenarios/                    # Scenario reference files
-├── architecture/agent-workflow.md
+├── architecture/
+│   ├── decisionforge-architecture.svg # Stable README architecture diagram
+│   └── agent-workflow.md
 ├── tests/engine.test.mjs
 ├── scripts/validate-static.mjs
 ├── CASE_STUDY.md

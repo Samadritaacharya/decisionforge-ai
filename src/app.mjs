@@ -9,6 +9,19 @@ let state = {
   run: null
 };
 
+const agentDefaults = {
+  agentProblem: "SCQ · MECE · hypotheses",
+  agentDiagnostic: "performance drivers",
+  agentHypothesis: "test competing explanations",
+  agentScenario: "strategic alternatives",
+  agentFinance: "value · payback",
+  agentStakeholder: "adoption dependencies",
+  agentRisk: "execution exposure",
+  agentRedTeam: "challenge assumptions",
+  agentRecommendation: "synthesis · trade-offs",
+  agentExecutive: "storyline · brief"
+};
+
 function setStatus(id, status, note = "") {
   const el = $(id);
   if (!el) return;
@@ -157,7 +170,38 @@ function buildRun() {
   return { ...partial, executiveBrief };
 }
 
+function resetDecisionRoom() {
+  state = { framingApproved: false, recommendationApproved: false, run: null };
+
+  Object.entries(agentDefaults).forEach(([id, note]) => setStatus(id, "idle", note));
+
+  $("analysisLocked").classList.remove("hidden");
+  $("analysisContent").classList.add("hidden");
+  $("issueTree").innerHTML = "<p>Run the Decision Room to generate the issue tree.</p>";
+
+  $("framingGate").classList.add("locked");
+  $("framingGate").classList.remove("approved");
+  $("framingGateTitle").textContent = "Approve the problem framing before analysis";
+  $("approveFraming").disabled = false;
+  $("approveFraming").textContent = "Approve framing";
+
+  $("recommendationGate").classList.add("locked");
+  $("recommendationGate").classList.remove("approved");
+  $("approveRecommendation").disabled = false;
+  $("approveRecommendation").textContent = "Approve recommendation";
+
+  $("downloadBrief").disabled = true;
+  $("downloadBrief").classList.add("secondary-disabled");
+
+  $("synthesisButton").disabled = true;
+  $("synthesisButton").textContent = "Generate executive synthesis";
+  $("synthesisPanel").classList.add("hidden");
+  $("synthesisMode").textContent = "";
+  $("synthesisText").textContent = "";
+}
+
 async function runFraming() {
+  resetDecisionRoom();
   $("runButton").disabled = true;
   $("runButton").textContent = "Structuring problem…";
   setStatus("agentProblem", "running", "Building SCQ and MECE issue tree");
@@ -193,6 +237,7 @@ async function runAnalysis() {
   $("analysisLocked").classList.add("hidden");
   $("analysisContent").classList.remove("hidden");
   $("recommendationGate").classList.remove("locked");
+  $("synthesisButton").disabled = false;
   $("runButton").disabled = false;
   $("runButton").textContent = "Re-run DecisionForge";
   document.querySelector('[href="#diagnosis"]').click();
@@ -204,7 +249,7 @@ function approveFraming() {
   $("framingGateTitle").textContent = "Problem framing approved";
   $("approveFraming").disabled = true;
   $("approveFraming").textContent = "Approved ✓";
-  runAnalysis();
+  return runAnalysis();
 }
 
 function approveRecommendation() {
@@ -229,6 +274,45 @@ function downloadBrief() {
   URL.revokeObjectURL(url);
 }
 
+async function requestSynthesis() {
+  if (!state.run) return;
+
+  const button = $("synthesisButton");
+  const fallback = {
+    mode: "client-fallback",
+    summary: `${state.run.recommendation.recommendation} ${state.run.recommendation.rationale[0]}`,
+    evidenceCount: caseData.drivers.length
+  };
+
+  button.disabled = true;
+  button.textContent = "Synthesizing…";
+
+  let result = fallback;
+  try {
+    const response = await fetch("/api/synthesize", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        recommendation: state.run.recommendation,
+        evidence: caseData.drivers.map(({ id, label, evidence }) => ({ id, label, evidence }))
+      })
+    });
+    if (!response.ok) throw new Error(`Synthesis endpoint returned ${response.status}`);
+    const body = await response.json();
+    if (body?.summary) result = body;
+  } catch {
+    result = fallback;
+  }
+
+  $("synthesisMode").textContent = result.mode === "provider"
+    ? "Provider-backed synthesis"
+    : "Deterministic synthesis";
+  $("synthesisText").textContent = result.summary;
+  $("synthesisPanel").classList.remove("hidden");
+  button.disabled = false;
+  button.textContent = "Refresh executive synthesis";
+}
+
 function refreshScenarios() {
   updateAssumptionLabels();
   if (!state.framingApproved) return;
@@ -242,6 +326,9 @@ function refreshScenarios() {
   $("recommendationGate").classList.remove("approved");
   $("downloadBrief").disabled = true;
   $("downloadBrief").classList.add("secondary-disabled");
+  $("synthesisPanel").classList.add("hidden");
+  $("synthesisButton").disabled = false;
+  $("synthesisButton").textContent = "Generate executive synthesis";
 }
 
 function initNavigation() {
@@ -267,6 +354,7 @@ function init() {
   $("approveFraming").addEventListener("click", approveFraming);
   $("approveRecommendation").addEventListener("click", approveRecommendation);
   $("downloadBrief").addEventListener("click", downloadBrief);
+  $("synthesisButton").addEventListener("click", requestSynthesis);
   ["realization", "costMultiplier", "disruptionMultiplier", "adoption"].forEach(id => $(id).addEventListener("input", refreshScenarios));
 }
 
