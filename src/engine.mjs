@@ -2,6 +2,10 @@ import { caseData, scenarioDefinitions } from "./case-data.mjs";
 
 const round = (n, d = 1) => Number(n.toFixed(d));
 const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+const boundedNumber = (value, fallback, min, max) => {
+  const parsed = Number(value);
+  return clamp(Number.isFinite(parsed) ? parsed : fallback, min, max);
+};
 
 export function calculateKPIs(data = caseData) {
   const b = data.baseline;
@@ -70,7 +74,8 @@ function correlation(xs, ys) {
     dx += a * a;
     dy += b * b;
   }
-  return num / Math.sqrt(dx * dy);
+  const denominator = Math.sqrt(dx * dy);
+  return denominator === 0 ? 0 : num / denominator;
 }
 
 export function diagnosticAnalystAgent(data = caseData) {
@@ -156,10 +161,10 @@ export function hypothesisAgent(data = caseData, diagnostic = diagnosticAnalystA
 }
 
 export function scenarioAgent(assumptions = {}) {
-  const realization = clamp(Number(assumptions.realization ?? 85), 50, 110) / 100;
-  const costMultiplier = clamp(Number(assumptions.costMultiplier ?? 100), 70, 150) / 100;
-  const disruptionMultiplier = clamp(Number(assumptions.disruptionMultiplier ?? 100), 50, 200) / 100;
-  const adoption = clamp(Number(assumptions.adoption ?? 80), 40, 100) / 100;
+  const realization = boundedNumber(assumptions.realization, 85, 50, 110) / 100;
+  const costMultiplier = boundedNumber(assumptions.costMultiplier, 100, 70, 150) / 100;
+  const disruptionMultiplier = boundedNumber(assumptions.disruptionMultiplier, 100, 50, 200) / 100;
+  const adoption = boundedNumber(assumptions.adoption, 80, 40, 100) / 100;
 
   const scenarios = scenarioDefinitions.map(s => {
     const realizedSavings = s.grossSavings * realization * (0.65 + 0.35 * adoption);
@@ -339,7 +344,7 @@ export function executiveCommunicationAgent(run) {
   const f = rec.financial;
   const evidenceLines = caseData.drivers.map(d => `- **${d.id} — ${d.label}:** ${d.evidence}`).join("\n");
   const roadmap = run.roadmap.phases.map(p => `### ${p.horizon} — ${p.title}\n${p.actions.map(a => `- ${a}`).join("\n")}`).join("\n\n");
-  return `# DecisionForge AI — Executive Decision Brief\n\n## Executive question\n${caseData.question}\n\n## Recommendation\n${rec.recommendation}\n\n## Why\n${rec.rationale.map(x => `- ${x}`).join("\n")}\n\n## Modeled economics\n- Current EBIT margin: **${f.currentMargin}%**\n- Target EBIT margin: **${f.targetMargin}%**\n- Annual net impact: **€${f.annualNetImpact}m**\n- One-time investment: **€${f.investment}m**\n- Payback: **${f.paybackMonths} months**\n- 3-year gross value after investment: **€${f.threeYearGrossValue}m**\n\n## Guardrails\n${rec.guardrails.map(x => `- ${x}`).join("\n")}\n\n## Implementation roadmap\n${roadmap}\n\n## Evidence trace\n${evidenceLines}\n\n---\n${caseData.disclaimer}\n`;
+  return `# DecisionForge AI — Executive Decision Brief\n\n## Executive question\n${caseData.question}\n\n## Recommendation\n${rec.recommendation}\n\n## Why\n${rec.rationale.map(x => `- ${x}`).join("\n")}\n\n## Modeled economics\n- Current EBIT margin: **${f.currentMargin}%**\n- Target EBIT margin: **${f.targetMargin}%**\n- Annual net impact: **€${f.annualNetImpact}m**\n- One-time investment: **€${f.investment}m**\n- Payback: **${f.paybackMonths} months**\n- 3-year modeled value after investment: **€${f.threeYearGrossValue}m**\n\n## Guardrails\n${rec.guardrails.map(x => `- ${x}`).join("\n")}\n\n## Implementation roadmap\n${roadmap}\n\n## Evidence trace\n${evidenceLines}\n\n---\n${caseData.disclaimer}\n`;
 }
 
 export function runDecisionForge(assumptions = {}) {
