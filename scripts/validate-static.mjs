@@ -20,6 +20,8 @@ const required = [
   "architecture/decisionforge-architecture.svg",
   "tests/engine.test.mjs",
   "tests/api.test.mjs",
+  "tests/artifacts.test.mjs",
+  "tests/ui-flow.test.mjs",
   "vercel.json"
 ];
 
