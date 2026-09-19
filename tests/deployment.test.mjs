@@ -33,6 +33,8 @@ test("production entrypoint exposes metadata, favicon and crawler policy", () =>
   assert.match(html, /<meta name="description"/);
   assert.match(html, /<meta name="robots" content="index,follow"/);
   assert.match(html, /property="og:title"/);
+  assert.match(html, /property="og:url" content="https:\/\/decisionforge-ai\.vercel\.app\/"\/?>/);
+  assert.match(html, /rel="canonical" href="https:\/\/decisionforge-ai\.vercel\.app\/"\/?>/);
   assert.match(html, /name="twitter:card"/);
   assert.match(html, /href="\.\/assets\/favicon\.svg"/);
   assert.match(html, /class="skip-link"/);
