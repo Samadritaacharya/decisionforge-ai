@@ -4,11 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="DecisionForge AI — an agentic strategy and transformation workbench for evidence-driven management decisions." />
+  <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#07111f" />
+  <meta name="color-scheme" content="light" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DecisionForge AI — Strategy & Transformation Workbench" />
+  <meta property="og:description" content="Evidence-driven problem framing, scenario economics, red-team challenge and implementation-ready recommendations." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="DecisionForge AI" />
+  <meta name="twitter:description" content="Agentic strategy and transformation workbench for inspectable management decisions." />
   <title>DecisionForge AI — Strategy & Transformation Workbench</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#brief">Skip to case brief</a>
   <div class="page-shell">
     <aside class="sidebar">
       <a class="brand" href="#top" aria-label="DecisionForge home">
@@ -37,7 +47,7 @@
           <span class="eyebrow">EXECUTIVE DECISION ROOM</span>
           <strong id="companyName">Northstar Services Group</strong>
         </div>
-        <button id="runButton" class="primary-action">Run Decision Room <span>→</span></button>
+        <button id="runButton" class="primary-action" aria-controls="framing">Run Decision Room <span>→</span></button>
       </header>
 
       <section id="brief" class="hero section-pad">
@@ -91,7 +101,7 @@
         <div id="framingGate" class="human-gate locked">
           <div class="gate-icon">H</div>
           <div><span>HUMAN APPROVAL GATE</span><h3 id="framingGateTitle">Approve the problem framing before analysis</h3><p>DecisionForge will not recommend action until the executive question and issue tree are accepted.</p></div>
-          <button id="approveFraming" class="gate-button">Approve framing</button>
+          <button id="approveFraming" class="gate-button" aria-controls="analysisContent">Approve framing</button>
         </div>
       </section>
 
@@ -119,10 +129,10 @@
             <p>Change the assumptions. DecisionForge recalculates value, payback and the recommendation immediately.</p>
           </div>
           <div class="assumption-panel">
-            <label>Savings realization <b id="realizationValue">85%</b><input id="realization" type="range" min="50" max="110" value="85" /></label>
-            <label>Implementation cost index <b id="costValue">100%</b><input id="costMultiplier" type="range" min="70" max="150" value="100" /></label>
-            <label>Disruption index <b id="disruptionValue">100%</b><input id="disruptionMultiplier" type="range" min="50" max="200" value="100" /></label>
-            <label>Adoption <b id="adoptionValue">80%</b><input id="adoption" type="range" min="40" max="100" value="80" /></label>
+            <label>Savings realization <b id="realizationValue">85%</b><input id="realization" type="range" min="50" max="110" value="85" aria-label="Savings realization percentage" /></label>
+            <label>Implementation cost index <b id="costValue">100%</b><input id="costMultiplier" type="range" min="70" max="150" value="100" aria-label="Implementation cost index percentage" /></label>
+            <label>Disruption index <b id="disruptionValue">100%</b><input id="disruptionMultiplier" type="range" min="50" max="200" value="100" aria-label="Disruption index percentage" /></label>
+            <label>Adoption <b id="adoptionValue">80%</b><input id="adoption" type="range" min="40" max="100" value="80" aria-label="Adoption percentage" /></label>
           </div>
           <div id="scenarioGrid" class="scenario-grid"></div>
         </section>
@@ -146,7 +156,7 @@
           <div id="recommendationGate" class="human-gate locked recommendation-gate">
             <div class="gate-icon">H</div>
             <div><span>HUMAN APPROVAL GATE</span><h3>Approve the recommendation before executive export</h3><p>Human accountability remains explicit even when analysis is agent-assisted.</p></div>
-            <button id="approveRecommendation" class="gate-button">Approve recommendation</button>
+            <button id="approveRecommendation" class="gate-button" aria-controls="downloadBrief">Approve recommendation</button>
           </div>
           <div class="synthesis-block">
             <div>
