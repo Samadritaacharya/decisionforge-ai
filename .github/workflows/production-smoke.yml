@@ -1,0 +1,22 @@
+name: Production Smoke Test
+
+on:
+  push:
+    branches: [audit/production-smoke]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify live Vercel production
+        env:
+          BASE_URL: https://decisionforge-ai.vercel.app
+        run: node scripts/smoke-production.mjs
