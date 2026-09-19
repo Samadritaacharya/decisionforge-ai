@@ -1,6 +1,8 @@
 name: Production Smoke Test
 
 on:
+  push:
+    branches: [verify/fc4d-production]
   workflow_dispatch:
   schedule:
     - cron: "17 6 * * 1"
