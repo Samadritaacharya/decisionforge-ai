@@ -13,6 +13,8 @@ assert.equal(home.res.status, 200, "Homepage must return 200");
 assert.match(home.res.headers.get("content-type") || "", /text\/html/i, "Homepage must be HTML");
 assert.match(home.text, /DecisionForge AI/, "Homepage must contain product title");
 assert.match(home.text, /src\/app\.mjs/, "Homepage must reference app module");
+assert.match(home.text, /rel="canonical" href="https:\/\/decisionforge-ai\.vercel\.app\/"\s*\/?>/, "Production canonical URL is missing");
+assert.match(home.text, /property="og:url" content="https:\/\/decisionforge-ai\.vercel\.app\/"\s*\/?>/, "Production og:url is missing");
 
 const requiredHeaders = {
   "x-content-type-options": "nosniff",
