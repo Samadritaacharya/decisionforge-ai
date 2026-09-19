@@ -1,5 +1,7 @@
 # DecisionForge AI
 
+[![DecisionForge CI](https://github.com/Samadritaacharya/decisionforge-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/Samadritaacharya/decisionforge-ai/actions/workflows/ci.yml)
+
 ### Agentic Strategy & Transformation Workbench
 
 **DecisionForge AI** is an evidence-driven decision-support workspace that turns an ambiguous management problem into a structured, inspectable decision chain: **problem framing → hypotheses → diagnostics → strategic alternatives → financial impact → risk → red-team challenge → recommendation → implementation**.
@@ -75,9 +77,21 @@ npm run check
 
 The repository uses only Node's built-in test runner, so CI does not require dependency installation.
 
-## Deploy
+## Production readiness
 
-The project is deployment-ready for Vercel as a static frontend with an optional serverless `/api/synthesize` endpoint. `vercel.json` includes basic security headers.
+The project is deployment-ready for Vercel as a static frontend with an optional serverless `/api/synthesize` endpoint.
+
+Production hardening includes:
+
+- CSP, clickjacking, MIME-sniffing, referrer and permissions headers;
+- no-store behavior for synthesis responses;
+- bounded synthesis payloads and provider timeout handling;
+- deterministic fallback if no AI provider is configured or the provider fails;
+- keyboard focus, skip navigation and reduced-motion support;
+- Open Graph/Twitter metadata, favicon and crawler policy;
+- automated Vercel deployment-contract tests.
+
+No paid API is required for the core demo.
 
 ## Repository map
 
@@ -90,12 +104,19 @@ The project is deployment-ready for Vercel as a static frontend with an optional
 │   ├── case-data.mjs            # Synthetic company + regional case data
 │   └── engine.mjs               # Agentic decision engine
 ├── api/synthesize.js            # Optional provider-backed synthesis + fallback
+├── assets/favicon.svg            # Product favicon
+├── robots.txt                    # Crawler policy
 ├── data/                         # Synthetic CSV evidence
 ├── scenarios/                    # Scenario reference files
 ├── architecture/
 │   ├── decisionforge-architecture.svg # Stable README architecture diagram
 │   └── agent-workflow.md
-├── tests/engine.test.mjs
+├── tests/
+│   ├── engine.test.mjs
+│   ├── api.test.mjs
+│   ├── artifacts.test.mjs
+│   ├── ui-flow.test.mjs
+│   └── deployment.test.mjs
 ├── scripts/validate-static.mjs
 ├── CASE_STUDY.md
 ├── METHODOLOGY.md
