@@ -73,8 +73,22 @@ A dependency-free DOM harness executes the actual `src/app.mjs` entrypoint and v
 
 The README uses `architecture/decisionforge-architecture.svg` instead of relying on a very wide Mermaid graph. This avoids the blank/off-canvas rendering behavior that can occur in GitHub's compact Mermaid viewer while keeping the architecture source-controlled and reviewable.
 
+## Production verification
+
+The public Vercel deployment at `https://decisionforge-ai.vercel.app/` has been verified from a GitHub-hosted runner. The production smoke test checks:
+
+- homepage availability and expected HTML;
+- favicon, robots, app module and engine module delivery;
+- CSP, clickjacking, referrer and opener security headers;
+- GET rejection on `/api/synthesize`;
+- successful POST synthesis with deterministic fallback when no provider is configured;
+- no-store API caching behavior;
+- rejection of malformed synthesis payloads.
+
+The smoke workflow is retained for manual and scheduled production checks.
+
 ## Known limitations
 
 This portfolio implementation is a decision-support simulation, not a substitute for real client discovery, causal analysis or verified financial baselines. Regional correlations demonstrate analytical workflow only. A real engagement would require source-system validation, stakeholder interviews, legal/privacy review where relevant, and pilot-based causal confirmation.
 
-The browser-flow regression test uses a lightweight dependency-free DOM harness rather than Chromium. Public-deployment visual regression should therefore still be performed after deployment.
+The browser-flow regression test uses a lightweight dependency-free DOM harness rather than Chromium. The public deployment has network/API smoke coverage, but pixel-level cross-browser visual regression is still outside the automated suite.

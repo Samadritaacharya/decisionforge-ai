@@ -1,6 +1,7 @@
 # DecisionForge AI
 
 [![DecisionForge CI](https://github.com/Samadritaacharya/decisionforge-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/Samadritaacharya/decisionforge-ai/actions/workflows/ci.yml)
+[![Live App](https://img.shields.io/badge/Live%20App-decisionforge--ai.vercel.app-111827?logo=vercel)](https://decisionforge-ai.vercel.app/)
 
 ### Agentic Strategy & Transformation Workbench
 
@@ -77,6 +78,12 @@ npm run check
 
 The repository uses only Node's built-in test runner, so CI does not require dependency installation.
 
+## Live app
+
+**Production:** https://decisionforge-ai.vercel.app/
+
+The deployed Vercel production URL is covered by a public smoke test that verifies the homepage, static assets, production security headers, deterministic synthesis fallback, and malformed-request handling.
+
 ## Production readiness
 
 The project is deployment-ready for Vercel as a static frontend with an optional serverless `/api/synthesize` endpoint.
@@ -89,7 +96,8 @@ Production hardening includes:
 - deterministic fallback if no AI provider is configured or the provider fails;
 - keyboard focus, skip navigation and reduced-motion support;
 - Open Graph/Twitter metadata, favicon and crawler policy;
-- automated Vercel deployment-contract tests.
+- automated Vercel deployment-contract tests;
+- a reusable production smoke test in `.github/workflows/production-smoke.yml`.
 
 No paid API is required for the core demo.
 
