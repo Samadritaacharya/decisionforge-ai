@@ -122,7 +122,7 @@ function renderRecommendation(rec, redTeam, risks, stakeholder, roadmap) {
     <div><span>Annual net impact</span><strong>€${fmt(f.annualNetImpact)}m</strong></div>
     <div><span>Target EBIT margin</span><strong>${f.targetMargin}%</strong></div>
     <div><span>Payback</span><strong>${f.paybackMonths} mo</strong></div>
-    <div><span>3-year gross value</span><strong>€${fmt(f.threeYearGrossValue)}m</strong></div>`;
+    <div><span>3-year modeled value</span><strong>€${fmt(f.threeYearGrossValue)}m</strong></div>`;
 
   $("redTeam").innerHTML = redTeam.challenges.map(c => `
     <article class="challenge">
@@ -151,7 +151,7 @@ function renderEvidence() {
     <article class="evidence-item">
       <div><span>${d.id}</span><strong>${d.label}</strong></div>
       <p>${d.evidence}</p>
-      <b>${d.impact}m</b>
+      <b>€${fmt(d.impact)}m</b>
     </article>`).join("");
 }
 

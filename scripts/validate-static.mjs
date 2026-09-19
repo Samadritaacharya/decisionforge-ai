@@ -22,6 +22,9 @@ const required = [
   "tests/api.test.mjs",
   "tests/artifacts.test.mjs",
   "tests/ui-flow.test.mjs",
+  "tests/deployment.test.mjs",
+  "assets/favicon.svg",
+  "robots.txt",
   "vercel.json"
 ];
 
@@ -64,6 +67,10 @@ for (const target of navTargets) {
 
 assert.match(html, /<link[^>]+href="\.\/styles\.css"/, "Stylesheet link is missing or incorrect");
 assert.match(html, /<script[^>]+type="module"[^>]+src="\.\/src\/app\.mjs"/, "Module entrypoint is missing or incorrect");
+assert.match(html, /class="skip-link"/, "Skip link is missing");
+assert.match(html, /href="\.\/assets\/favicon\.svg"/, "Favicon reference is missing");
+assert.match(html, /property="og:title"/, "Open Graph metadata is missing");
+assert.match(html, /name="twitter:card"/, "Twitter metadata is missing");
 
 for (const binding of [
   'addEventListener("click", runFraming)',
@@ -110,5 +117,5 @@ for (const file of independentFiles) {
 }
 
 console.log(
-  `Static validation passed: ${required.length} required files, ${uniqueHtmlIds.size} unique UI ids, ${new Set(appIds).size} app id references, navigation targets, synthesis wiring, rerun safety, GitHub-safe architecture SVG, and independence checks are valid.`
+  `Static validation passed: ${required.length} required files, ${uniqueHtmlIds.size} unique UI ids, ${new Set(appIds).size} app id references, navigation targets, synthesis wiring, rerun safety, metadata/accessibility hooks, GitHub-safe architecture SVG, and independence checks are valid.`
 );

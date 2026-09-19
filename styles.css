@@ -1,3 +1,7 @@
+.skip-link{position:fixed;left:16px;top:12px;z-index:1000;transform:translateY(-160%);background:#07111f;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.skip-link:focus{transform:none}
+:focus-visible{outline:3px solid #21cfb1;outline-offset:3px}
+button,input[type="range"],a{touch-action:manipulation}
 :root {
   --ink: #091524;
   --navy: #07111f;
@@ -230,4 +234,8 @@ main { min-width:0; }
 }
 @media(max-width:560px){
   .topbar{height:auto;padding-top:12px;padding-bottom:12px;gap:12px}.topbar .eyebrow{display:none}.hero{padding-top:46px}.hero h1{letter-spacing:-2.5px}.agent-grid,.metric-grid,.hypothesis-grid,.scenario-grid,.red-team-grid,.assumption-panel,.stakeholder-grid{grid-template-columns:1fr}.issue-tree{grid-template-columns:1fr}.evidence-item{grid-template-columns:1fr}.evidence-item>b{text-align:left}.footer{display:block}.footer p{margin-top:12px}.recommendation-grid{gap:30px}.synthesis-block{align-items:flex-start;flex-direction:column}.synthesis-block .secondary-action{width:100%}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }

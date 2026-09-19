@@ -6,6 +6,8 @@ function mockRes() {
   return {
     code: null,
     body: null,
+    headers: {},
+    setHeader(name, value) { this.headers[String(name).toLowerCase()] = value; return this; },
     status(code) { this.code = code; return this; },
     json(body) { this.body = body; return this; }
   };
@@ -25,7 +27,7 @@ function restoreEnv(old) {
   if (old.model === undefined) delete process.env.AI_MODEL; else process.env.AI_MODEL = old.model;
 }
 
-test("synthesis endpoint has a no-key deterministic fallback", async () => {
+test("synthesis endpoint has a no-key deterministic fallback and disables caching", async () => {
   const old = snapshotEnv();
   delete process.env.AI_API_BASE;
   delete process.env.AI_API_KEY;
@@ -45,16 +47,52 @@ test("synthesis endpoint has a no-key deterministic fallback", async () => {
     assert.equal(res.body.mode, "deterministic-fallback");
     assert.equal(res.body.evidenceCount, 1);
     assert.match(res.body.summary, /hybrid transformation/);
+    assert.equal(res.headers["cache-control"], "no-store");
+    assert.equal(res.headers["x-content-type-options"], "nosniff");
   } finally {
     restoreEnv(old);
   }
 });
 
-test("synthesis endpoint rejects non-POST", async () => {
+test("synthesis endpoint rejects non-POST and advertises allowed method", async () => {
   const res = mockRes();
   await handler({ method: "GET" }, res);
   assert.equal(res.code, 405);
   assert.match(res.body.error, /Method not allowed/);
+  assert.equal(res.headers.allow, "POST");
+});
+
+test("synthesis endpoint validates request shape and evidence limits", async () => {
+  const invalidBody = mockRes();
+  await handler({ method: "POST", body: [] }, invalidBody);
+  assert.equal(invalidBody.code, 400);
+  assert.match(invalidBody.body.error, /JSON object/);
+
+  const invalidRecommendation = mockRes();
+  await handler({ method: "POST", body: { recommendation: null, evidence: [] } }, invalidRecommendation);
+  assert.equal(invalidRecommendation.code, 400);
+  assert.match(invalidRecommendation.body.error, /recommendation/);
+
+  const tooMuchEvidence = mockRes();
+  await handler({
+    method: "POST",
+    body: { recommendation: {}, evidence: Array.from({ length: 21 }, (_, i) => ({ id: `E-${i}` })) }
+  }, tooMuchEvidence);
+  assert.equal(tooMuchEvidence.code, 400);
+  assert.match(tooMuchEvidence.body.error, /at most 20/);
+});
+
+test("synthesis endpoint rejects oversized payloads", async () => {
+  const res = mockRes();
+  await handler({
+    method: "POST",
+    body: {
+      recommendation: { recommendation: "x".repeat(41_000) },
+      evidence: []
+    }
+  }, res);
+  assert.equal(res.code, 400);
+  assert.match(res.body.error, /too large/);
 });
 
 test("configured provider path calls the OpenAI-compatible chat-completions endpoint", async () => {
@@ -71,7 +109,7 @@ test("configured provider path calls the OpenAI-compatible chat-completions endp
       ok: true,
       status: 200,
       async json() {
-        return { choices: [{ message: { content: "Provider-backed executive synthesis." } }] };
+        return { choices: [{ message: { content: "  Provider-backed executive synthesis.  " } }] };
       }
     };
   };
@@ -93,9 +131,11 @@ test("configured provider path calls the OpenAI-compatible chat-completions endp
     assert.equal(captured.url, "https://provider.example/v1/chat/completions");
     assert.equal(captured.options.method, "POST");
     assert.equal(captured.options.headers.authorization, "Bearer test-key");
+    assert.ok(captured.options.signal, "Provider request must have a timeout signal");
     const request = JSON.parse(captured.options.body);
     assert.equal(request.model, "test-model");
     assert.equal(request.temperature, 0.2);
+    assert.equal(request.max_tokens, 260);
     assert.equal(request.messages.length, 2);
   } finally {
     globalThis.fetch = oldFetch;
@@ -103,7 +143,7 @@ test("configured provider path calls the OpenAI-compatible chat-completions endp
   }
 });
 
-test("provider failures degrade to deterministic fallback instead of breaking the route", async () => {
+test("provider HTTP failures degrade to deterministic fallback instead of breaking the route", async () => {
   const old = snapshotEnv();
   const oldFetch = globalThis.fetch;
   process.env.AI_API_BASE = "https://provider.example/v1";
@@ -126,6 +166,37 @@ test("provider failures degrade to deterministic fallback instead of breaking th
     assert.equal(res.body.mode, "deterministic-fallback");
     assert.equal(res.body.summary, "Keep the deterministic recommendation.");
     assert.match(res.body.providerError, /503/);
+  } finally {
+    globalThis.fetch = oldFetch;
+    restoreEnv(old);
+  }
+});
+
+test("provider exceptions return a safe generic fallback error", async () => {
+  const old = snapshotEnv();
+  const oldFetch = globalThis.fetch;
+  process.env.AI_API_BASE = "https://provider.example/v1";
+  process.env.AI_API_KEY = "test-key";
+  process.env.AI_MODEL = "test-model";
+
+  globalThis.fetch = async () => {
+    throw new Error("internal-network-details-that-should-not-leak");
+  };
+
+  try {
+    const res = mockRes();
+    await handler({
+      method: "POST",
+      body: {
+        recommendation: { recommendation: "Keep the deterministic recommendation." },
+        evidence: []
+      }
+    }, res);
+
+    assert.equal(res.code, 200);
+    assert.equal(res.body.mode, "deterministic-fallback");
+    assert.equal(res.body.providerError, "Provider request failed");
+    assert.doesNotMatch(JSON.stringify(res.body), /internal-network-details/);
   } finally {
     globalThis.fetch = oldFetch;
     restoreEnv(old);

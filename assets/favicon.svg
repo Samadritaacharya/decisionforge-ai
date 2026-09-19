@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DecisionForge AI">
+  <rect width="64" height="64" rx="14" fill="#07111f"/>
+  <path d="M16 16h18c9 0 14 5 14 16s-5 16-14 16H16V16zm10 9v14h7c4 0 6-2 6-7s-2-7-6-7h-7z" fill="#21cfb1"/>
+</svg>
