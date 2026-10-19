@@ -1,0 +1,31 @@
+name: Portfolio runtime verification
+on:
+  push:
+    branches: [audit/portfolio-verification-20261019]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Unit tests, API scenarios, and static validation
+        run: npm run check
+      - name: Example data verification
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const files=fs.readdirSync('data').filter(f=>f.endsWith('.csv'));
+          assert(files.length>=4,'Expected at least 4 example datasets');
+          for (const f of files) {
+            const lines=fs.readFileSync('data/'+f,'utf8').trim().split(/\r?\n/);
+            assert(lines.length>1,'Empty example dataset: '+f);
+            console.log(f+': '+(lines.length-1)+' example records');
+          }
+          JS
